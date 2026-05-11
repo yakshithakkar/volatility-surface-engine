@@ -53,16 +53,18 @@ refresh = st.sidebar.button(
 # -----------------------------------
 # Cached Yahoo Finance Fetch
 # -----------------------------------
+# -----------------------------------
+# Cached Yahoo Finance Fetch
+# -----------------------------------
 
 @st.cache_data(ttl=300)
 def load_market_data(ticker):
 
-    asset = yf.Ticker(ticker)
-
-    # Retry logic
     for attempt in range(3):
 
         try:
+
+            asset = yf.Ticker(ticker)
 
             spot = asset.history(
                 period="1d"
@@ -70,7 +72,7 @@ def load_market_data(ticker):
 
             expiries = asset.options
 
-            return asset, spot, expiries
+            return spot, expiries
 
         except Exception as e:
 
@@ -80,10 +82,13 @@ def load_market_data(ticker):
                 raise e
 
 
-asset, spot, expiries = load_market_data(
+# Load cached values
+spot, expiries = load_market_data(
     ticker
 )
 
+# Create fresh ticker object
+asset = yf.Ticker(ticker)
 st.write(f"## Spot Price: {spot:.2f}")
 
 expiries = asset.options
