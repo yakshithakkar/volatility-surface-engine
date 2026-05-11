@@ -520,7 +520,7 @@ with tab_smile:
                 name="Impl. Vol",
                 hovertemplate="Moneyness: %{x:.3f}<br>IV: %{y:.2f}%<extra></extra>",
             ))
-            fig_smile.add_vline(x=1.0, line_dash="dash", line_color="#ffffff44",
+            fig_smile.add_vline(x=1.0, line_dash="dash", line_color="gray",
                                 annotation_text="ATM", annotation_position="top")
             fig_smile.update_layout(
                 xaxis_title="Moneyness (K/S)",
