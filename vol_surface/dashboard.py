@@ -244,8 +244,15 @@ def load_market_data(ticker):
 
 @st.cache_data(ttl=300)
 def load_chain(ticker, expiry):
+
     asset = yf.Ticker(ticker)
-    return asset.option_chain(expiry)
+
+    chain = asset.option_chain(expiry)
+
+    calls = chain.calls.copy()
+    puts = chain.puts.copy()
+
+    return calls, puts
 
 
 with st.spinner(f"Loading market data for **{ticker}**..."):
@@ -298,8 +305,9 @@ for i, expiry in enumerate(selected_expiries):
     progress.progress((i + 1) / len(selected_expiries), text=f"Loading {expiry}…")
 
     try:
-        chain = load_chain(ticker, expiry)
-        calls = chain.calls.copy()
+        chain = load_chain(...)
+calls = chain.calls
+puts = chain.puts
 
         calls = calls[["strike", "lastPrice", "bid", "ask", "impliedVolatility"]]
         calls["mid_price"] = (calls["bid"] + calls["ask"]) / 2
