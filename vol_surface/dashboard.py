@@ -305,9 +305,7 @@ for i, expiry in enumerate(selected_expiries):
     progress.progress((i + 1) / len(selected_expiries), text=f"Loading {expiry}…")
 
     try:
-        chain = load_chain(...)
-calls = chain.calls
-puts = chain.puts
+        calls, puts = load_chain(ticker,expiry)
 
         calls = calls[["strike", "lastPrice", "bid", "ask", "impliedVolatility"]]
         calls["mid_price"] = (calls["bid"] + calls["ask"]) / 2
