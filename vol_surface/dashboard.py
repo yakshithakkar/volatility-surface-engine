@@ -637,7 +637,7 @@ with tab_smile:
             colorbar=dict(title="IV (%)"),
         ))
         fig_heat.add_vline(
-            x=str(int(round(spot / 5.0) * 5)),
+            x=int(round(spot / 5.0) * 5),
             line_dash="dash", line_color="white",
             annotation_text=f"ATM ~{spot:.0f}",
         )
