@@ -1,5 +1,6 @@
 import streamlit as st
 import yfinance as yf
+import time
 import pandas as pd
 import numpy as np
 
@@ -49,9 +50,39 @@ refresh = st.sidebar.button(
 # -----------------------------------
 # LOAD DATA
 # -----------------------------------
-asset = yf.Ticker(ticker)
+# -----------------------------------
+# Cached Yahoo Finance Fetch
+# -----------------------------------
 
-spot = asset.history(period="1d")["Close"].iloc[-1]
+@st.cache_data(ttl=300)
+def load_market_data(ticker):
+
+    asset = yf.Ticker(ticker)
+
+    # Retry logic
+    for attempt in range(3):
+
+        try:
+
+            spot = asset.history(
+                period="1d"
+            )["Close"].iloc[-1]
+
+            expiries = asset.options
+
+            return asset, spot, expiries
+
+        except Exception as e:
+
+            time.sleep(2)
+
+            if attempt == 2:
+                raise e
+
+
+asset, spot, expiries = load_market_data(
+    ticker
+)
 
 st.write(f"## Spot Price: {spot:.2f}")
 
