@@ -31,13 +31,7 @@ This project combines:
 
 ---
 
-# Dashboard Preview
 
-| 3D Volatility Surface | Volatility Smile |
-|---|---|
-| *(Add screenshot later)* | *(Add screenshot later)* |
-
----
 
 # Project Structure
 
