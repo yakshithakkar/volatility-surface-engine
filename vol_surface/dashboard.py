@@ -766,8 +766,7 @@ with tab_greeks:
         x=strike_range, y=gammas,
         name="Gamma (Γ)", line=dict(color="#00c96b", width=2, dash="dot"),
     ), secondary_y=True)
-    fig_greeks.add_vline(x=spot, line_dash="dash", line_color="gray2R1R0;276;0c11;rgb:0000/0000/000010;rgb:ffff/ffff/ffff12;2$y",
-                         annotation_text="Spot", annotation_position="top")
+    fig_greeks.add_vline(x=spot,line_dash="dash",line_color="gray",annotation_text="Spot",annotation_position="top")
     fig_greeks.update_layout(
         xaxis_title="Strike ($)",
         plot_bgcolor="#0e1117",
